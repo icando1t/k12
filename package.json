@@ -1,5 +1,8 @@
 {
   "name": "k12-site",
   "version": "1.0.0",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "jose": "^5.2.0"
+  }
 }
