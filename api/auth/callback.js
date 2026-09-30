@@ -56,6 +56,11 @@ export default async function handler(req, res) {
             return res.status(400).send('缺少授权 code');
         }
 
+        // 检查环境变量
+        if (!process.env.WECOM_CORP_ID || !process.env.WECOM_SECRET) {
+            throw new Error('缺少 WECOM_CORP_ID 或 WECOM_SECRET 环境变量');
+        }
+
         // 1. 获取 access_token
         const accessToken = await getAccessToken();
 
@@ -77,6 +82,6 @@ export default async function handler(req, res) {
         res.redirect(302, '/');
     } catch (err) {
         console.error('Auth Callback Error:', err);
-        res.status(500).send('认证失败，请重试');
+        res.status(500).send(`认证失败: ${err.message}`);
     }
 }
