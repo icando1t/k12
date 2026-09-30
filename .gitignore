@@ -27,5 +27,8 @@ Desktop.ini
 # Linux
 *~
 
+# Dependencies
+node_modules/
+
 # Logs
 *.log
