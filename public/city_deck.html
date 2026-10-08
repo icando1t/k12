@@ -1058,7 +1058,7 @@ function fail(msg, detail){
 
 if(!KEY){
   fail('URL 少了城市参数', '<div>请用 <code>city_deck.html?c=苏州</code> 这样的地址打开。</div>'
-    +'<div>可用的城市:见 <code>data/deck/</code>(仓库根) 下的文件名(共 91 城)。</div>'
+    +'<div>可用的城市:见 <code>data/deck/</code>(仓库根) 下的文件名 —— 有几份就是几城,不写死数字(写死了每次并新城都会过期)。</div>'
     +'<div><a href="dashboard_ceo_actions.html">← 回城市资源配置页</a></div>');
 }else{
   // 数据用 <script> 引入而不是 fetch —— 本地 file:// 下 fetch 读 json 会被 CORS 拦掉。
@@ -1274,7 +1274,12 @@ function renderDeck(D){
     +topbar(esc(city)+'市场 · 区域竞争格局','看竞争 · 案例')
     +'<div class="flex-1 px-10 pt-[22px] pb-[12px] flex flex-col overflow-hidden bg-white">'
     +'<div class="text-[21px] font-bold text-mck-text tracking-wide">'+esc(city)+'市场 · 区域竞争格局</div>'
-    +'<div class="text-[16px] text-mck-gray mt-[2px]">各行政区主要 K12 培训机构校区分布（高德核验口径）'
+    // ★ 2026-10-08:这句话原来写死「(高德核验口径)」—— 但学大那一行的数现在是**内部台账**
+    //   (《研究城市清单-补充校区数量》的「学成合计」,见 data/deck_we_excel.json 覆盖层),
+    //   不再是高德 POI 数。一份表里两种口径,标语必须说清,否则等于把台账数冒充高德核验。
+    +'<div class="text-[16px] text-mck-gray mt-[2px]">各行政区主要 K12 培训机构校区分布'
+      +'（竞品为高德核验口径;学大行为内部台账口径'
+      +(D.weAmapSrc==='amap'?' —— 本城无台账行,仍用高德数':'')+'）'
     +'<span class="ml-3"><span class="tag-h text-[16px]">调研时间 '+esc(D.date)+'</span></span></div>'
     +'<div class="w-[36px] h-[3px] bg-mck-blue mt-[6px] mb-[8px] shrink-0"></div>'
     +'<div class="flex-1 pr-[2px] overflow-y-auto"><table class="w-full text-left border-collapse text-[13px]">'
